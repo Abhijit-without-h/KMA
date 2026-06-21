@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" width="300" alt="KMA — Kleinian Memory Architecture" />
+  <img src="https://raw.githubusercontent.com/Abhijit-without-h/KMA/main/assets/logo.png" width="300" alt="KMA — Kleinian Memory Architecture" />
 </p>
 
 <h1 align="center">KMA · Kleinian Memory Architecture</h1>
