@@ -42,22 +42,15 @@ The key idea, stated plainly: hyperbolic space embeds **trees with almost no dis
 
 ---
 
-## The breakthrough, measured honestly
+## What we've achieved
 
-We trained a small projection (`φ`) that maps any embedding into a hyperbolic ball, supervised by the memory tree itself. On **ancestor retrieval** — reconstructing is-a / "what's the parent concept" relationships — it isn't a marginal gain:
+A working, end-to-end hyperbolic memory system — not just a paper idea:
 
-```
-Ancestor retrieval (MAP, higher is better)
-  cosine (flat embeddings)      0.356
-  KMA, untrained projection     0.187      ← geometry alone is not magic
-  KMA, trained projection       0.90–1.00  ← +0.5–0.6 over cosine
+- A **trained projection (`φ`)** that maps any embedding into a hyperbolic ball, supervised by the memory tree itself. In small, controlled tests it clearly improves **hierarchical / "what's the parent concept" retrieval** over flat cosine, while holding **parity** on ordinary similarity.
+- An early end-to-end run on a **real stack** — EmbeddingGemma embeddings + a live Pinecone index — reproduced the same pattern, suggesting the gain is structural rather than a quirk of one embedder.
+- A full **agentic-memory layer** — auto-placement, provenance ("why was this recalled"), and lifecycle ops — exposed over **MCP**, so an LLM can use it as live long-term memory.
 
-Flat similarity (sibling AUC, the guardrail)
-  cosine                        0.960
-  KMA, trained projection       1.000      ← parity: we didn't break similarity
-```
-
-**Read this honestly.** We do **not** beat OpenAI/Gemma + cosine at flat semantic similarity — that's their home turf, and we aim for *parity* there. The win is on **hierarchical / asymmetric retrieval**, which flat search cannot represent at all. The untrained-projection row is in the table on purpose: it proves the gain comes from *learning*, not from hand-waving about geometry. (Current numbers are on a controlled taxonomy; larger real-world hierarchies are on the roadmap.)
+Honest scope: these are small, controlled experiments. The advantage is specifically on **hierarchical / asymmetric** retrieval — *not* on flat semantic similarity, which is cosine's home turf and where we only aim for parity. Larger, real-world hierarchies are on the roadmap.
 
 ---
 
