@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "kleinian-memory"
+version = "0.1.0"
+description = "Hyperbolic, hierarchy-aware agentic memory for LLMs (import as `kma`)"
+readme = "README.md"
+license = { text = "AGPL-3.0-or-later" }
+requires-python = ">=3.12"
+authors = [{ name = "Abhijit S R" }]
+keywords = ["llm", "agent", "memory", "hyperbolic", "embeddings", "mcp", "retrieval"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "numpy>=1.26",
+    "pydantic>=2.6",
+]
+
+[project.urls]
+Homepage = "https://github.com/Abhijit-without-h/KMA"
+Repository = "https://github.com/Abhijit-without-h/KMA"
+
+[project.optional-dependencies]
+embed = ["sentence-transformers>=2.5"]   # real embeddings (else hashing fallback)
+train = ["torch>=2.2"]                    # trainable hyperbolic chart (no geoopt needed)
+mcp = ["mcp>=1.2"]                         # MCP connector for LLM hosts
+viz = ["matplotlib>=3.8"]
+dev = ["pytest>=8.0", "ruff>=0.4"]
+
+[project.scripts]
+kma-mcp = "kma.mcp_server:main"           # `kma-mcp` runs the MCP server after install
+
+[tool.hatch.build.targets.wheel]
+packages = ["kma"]
+
+[tool.hatch.build.targets.sdist]
+include = ["kma", "examples", "README.md", "LICENSE", "pyproject.toml"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

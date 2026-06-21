@@ -1,0 +1,24 @@
+# byte-compiled / caches
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+
+# build artifacts
+build/
+dist/
+
+# model + runtime artifacts
+*.pt
+kma_memory.json
+
+# generated images (keep the logo)
+*.png
+!assets/logo.png
+
+# envs / editor / tooling
+.venv/
+.DS_Store
+.claude/
