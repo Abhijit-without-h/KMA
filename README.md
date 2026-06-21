@@ -22,7 +22,7 @@
 
 > Most agent memory is a **flat bag of vectors** retrieved by cosine similarity. KMA gives your agent a **memory with structure** — a hyperbolic concept tree it can drill down, roll up, and *explain* — and it provably beats cosine on the one thing flat memory can't do: **hierarchy**.
 
-It plugs **into** what you already use — any embedding model (OpenAI, Gemma, MiniLM), any vector DB (Pinecone, Chroma), any LLM (via MCP or OpenRouter) — and adds the structural layer on top at near-zero compute.
+It plugs **into** what you already use — any embedding model (OpenAI, Gemma, MiniLM), any vector DB (Pinecone, Chroma), any LLM host (via MCP) — and adds the structural layer on top at near-zero compute.
 
 ---
 
@@ -82,16 +82,6 @@ print(mem.get_context("what backend should I scaffold?", scope={"user_id": "alic
 # -> a compact, prompt-ready memory block, rolled up with its ancestors
 ```
 
-**Wired to a live LLM** (OpenRouter — any model) with retrieve-before / write-after:
-
-```python
-from kma.connectors import OpenRouterAgent
-from kma.memory import AgenticMemory
-
-agent = OpenRouterAgent(AgenticMemory(), scope={"user_id": "alice"}, extract_facts=True)
-reply, injected_memory = agent.chat("remind me what stack I'm using")
-```
-
 **As an MCP server** for Claude Desktop / Claude Code — drop into `.mcp.json`:
 
 ```json
@@ -126,7 +116,6 @@ text ─▶ embedding (any model) ─▶ φ chart ─▶ point in a Poincaré ba
 | `kma/geometry.py` | the math heart: Poincaré-ball ops with learnable curvature |
 | `kma/chart.py` · `train.py` | the trainable projection `φ` and its objective |
 | `kma/extract.py` | LLM fact extraction (distill turns into atomic memories) |
-| `kma/connectors/` | `OpenRouterAgent` agent loop |
 | `kma/mcp_server.py` | MCP connector for LLM hosts |
 
 ---
