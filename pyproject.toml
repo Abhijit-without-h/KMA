@@ -40,7 +40,7 @@ kma-mcp = "kma.mcp_server:main"           # `kma-mcp` runs the MCP server after 
 packages = ["kma"]
 
 [tool.hatch.build.targets.sdist]
-include = ["kma", "examples", "README.md", "LICENSE", "pyproject.toml"]
+include = ["kma", "README.md", "LICENSE", "pyproject.toml"]
 
 [tool.ruff]
 line-length = 100
