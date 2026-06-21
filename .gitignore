@@ -18,6 +18,10 @@ kma_memory.json
 *.png
 !assets/logo.png
 
+# secrets
+.env
+.env.*
+
 # envs / editor / tooling
 .venv/
 .DS_Store
