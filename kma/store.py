@@ -1,10 +1,3 @@
-"""In-memory node store with optional JSON persistence.
-
-Keeps parent/child links and a stacked matrix of embeddings + ball coords so
-retrieval can do fast vectorized scoring. SQLite/Postgres can slot in behind
-this same interface later (brief Phase D); v1 stays in-memory.
-"""
-
 from __future__ import annotations
 
 import json

@@ -1,9 +1,3 @@
-"""Typed data model for a memory node (Pydantic v2).
-
-Numpy arrays are stored as plain float lists so nodes serialize cleanly to
-JSON / SQLite. Helper properties expose the numpy views the engine needs.
-"""
-
 from __future__ import annotations
 
 from datetime import datetime, timezone

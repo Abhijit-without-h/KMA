@@ -1,17 +1,3 @@
-"""Candidate generators for evidence-driven retrieval.
-
-Each retriever is an independent "voter": given a query it returns a ranked list
-of candidates. They disagree in useful ways -- cosine catches paraphrase, BM25
-catches exact terms/names, the hyperbolic manifold catches structural/general
-relatives. fusion.py combines their votes and only trusts a result that several
-retrievers corroborate (this is the anti-hallucination move).
-
-All retrievers share one interface:
-    .name
-    .search(query: Query, k: int) -> list[Candidate]
-and are built from plain arrays so they are unit-testable without a store.
-"""
-
 from __future__ import annotations
 
 import math

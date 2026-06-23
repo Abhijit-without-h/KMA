@@ -1,17 +1,3 @@
-"""A small is-a taxonomy with DESCRIPTIVE glosses for training/eval.
-
-Critical design choice: a node's gloss never names its ancestors. If a child's
-text contained its parent's name, cosine could ace ancestor retrieval by mere
-lexical overlap and there'd be nothing for hyperbolic geometry to prove. So
-general concepts get general descriptions that share little vocabulary with
-their specific descendants — exactly the asymmetric setting where cosine is
-weak and a trained hyperbolic chart wins.
-
-Structure: 4 domains x 3 subtopics x 3 leaves = 52 nodes, depth 0..2.
-`build_store()` embeds every gloss and returns a populated MemoryStore whose
-parent/child links are the is-a edges used as free training supervision.
-"""
-
 from __future__ import annotations
 
 # (gloss, {subtopic_gloss: [leaf_gloss, ...]})

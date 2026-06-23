@@ -1,20 +1,3 @@
-"""Head-to-head benchmark: a flat vector-DB baseline vs the KMA pipeline.
-
-The "baseline" is cosine kNN over the chosen embeddings -- which is exactly what
-Pinecone / Chroma / a raw OpenAI-embeddings + cosine setup gives you. "KMA" is
-the trained hyperbolic chart on the SAME embeddings. We report both retrieval
-QUALITY (two tasks) and LATENCY, so the compute cost of the extra layer is visible.
-
-Pick the embedder with KMA_EMBEDDER:
-    KMA_EMBEDDER=st      python -m kma.bench     # sentence-transformers (local)
-    KMA_EMBEDDER=openai  python -m kma.bench     # OpenAI REST API (needs OPENAI_API_KEY)
-    KMA_EMBEDDER=hashing python -m kma.bench     # offline fallback
-
-Quality tasks:
-  (A) Ancestor retrieval MAP  -- hierarchical / is-a; KMA should win (cosine can't).
-  (B) Flat similarity AUC     -- the guardrail; KMA should hold PARITY with cosine.
-"""
-
 from __future__ import annotations
 
 import time

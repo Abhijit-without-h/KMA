@@ -1,28 +1,3 @@
-"""Scaled benchmark for the hyperbolic RegionIndex: is routing FAST and FAITHFUL?
-
-The toy eval (kma/eval.py) proves the geometry beats cosine on hierarchy at ~52
-nodes. This benchmark answers the *production* question the manifold introduces:
-
-    When we replace the O(N) full scan with sub-linear region routing, do we
-    keep the right answers, and how much faster does it actually get as N grows?
-
-Ground truth is the EXACT nearest-k by Poincare distance over all N points
-(`dist_c_batch` + argsort). The RegionIndex is the approximation. We report:
-
-  * recall@k   : overlap of routed top-k with the exact top-k   (fidelity)
-  * latency    : ms/query, full-scan vs routed, across N        (the speed claim)
-  * speedup    : full / routed
-  * touched    : avg fraction of the corpus the router scores    (why it's faster)
-
-and an nprobe sweep showing the recall<->speed knob. Honest scope: coordinates
-are a synthetic but genuinely hierarchical ball embedding (clustered topics ->
-subtopics -> leaves, placed with the real kma.placement logic), and the hashing
-embedder, so this isolates the INDEX, not a particular embedding model.
-
-Run:  python -m kma.scale_bench
-      python -m kma.scale_bench --sizes 200,1000,5000 --k 10 --nprobe 3
-"""
-
 from __future__ import annotations
 
 import argparse

@@ -1,24 +1,3 @@
-"""The self-organizing hyperbolic manifold: regions, geodesic walk, folding.
-
-This turns the Poincare ball from passive storage into an *index*. Memories are
-grouped into regions (hyperbolic neighborhoods); retrieval routes to the nearest
-region(s) and refines locally, so per-query cost drops from O(N) to ~O(sqrt N).
-
-Everything here is pure numpy and operates on plain coordinate arrays, so it is
-unit-testable without a store, an embedder, or a trained chart. The engine wires
-it in as ONE candidate generator among several (see retrievers.py / fusion.py);
-the manifold is deliberately NOT the final authority on what gets returned.
-
-Design notes
-------------
-* Region centers are hyperbolic Frechet means (geometry.frechet_mean_c).
-* Clustering runs in the tangent space at the origin (logmap0 -> Euclidean
-  k-means -> expmap0 centers): cheap, and the true dist_c is only applied to the
-  routed shortlist. This is the "lightweight coarse cut, small local refine".
-* find_folds picks the MORE GENERAL memory (smaller radius = closer to origin)
-  as the survivor, matching KMA's "radius = generality" convention.
-"""
-
 from __future__ import annotations
 
 from dataclasses import dataclass

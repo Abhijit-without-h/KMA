@@ -1,25 +1,3 @@
-"""A/B evaluation: cosine vs random-phi vs trained-phi.
-
-Two tasks, chosen to be honest about where hyperbolic geometry can and cannot
-beat cosine:
-
-  (A) ANCESTOR RETRIEVAL (hierarchical reconstruction) -- THE WIN.
-      For each node, rank all others as candidate is-a ancestors. Cosine is
-      symmetric and has no notion of "more general than", so it ranks similar
-      *siblings* above true (general) ancestors. A trained hyperbolic chart
-      uses small distance + smaller radius to identify ancestors. Metric: MAP.
-
-  (B) FLAT SIMILARITY PARITY -- the guardrail.
-      Rank same-subtopic siblings above cross-branch nodes. Cosine is excellent
-      here; the goal for trained-phi is PARITY, proving we didn't wreck
-      semantics while gaining hierarchy. Metric: ranking AUC.
-
-The random-phi column (untrained chart) isolates the effect of *training*: any
-lift over it is due to learning, not to the geometry alone.
-
-Run:  python -m kma.eval
-"""
-
 from __future__ import annotations
 
 import numpy as np

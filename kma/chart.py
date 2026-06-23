@@ -1,19 +1,3 @@
-"""Trainable chart map phi: embedding -> point in a curvature-c Poincare ball.
-
-This replaces the frozen random projection (placement._projection). Because the
-projection is *learned*, hyperbolic distance becomes a meaningful signal rather
-than a degraded one, so it can be used as a primary retrieval signal.
-
-Architecture:
-    embedding(384) -> MLP -> tangent vector(dim) -> expmap0_c -> ball coord
-Curvature c is a learnable scalar (c = softplus(raw_c)), so the model can pick
-how "tree-like" the space should be.
-
-All torch geometry here uses the SAME convention as kma.geometry (curvature-c
-half-angle form), so coordinates produced by `encode()` are scored correctly by
-the numpy `dist_c` in the engine. Base embeddings stay frozen upstream.
-"""
-
 from __future__ import annotations
 
 from pathlib import Path

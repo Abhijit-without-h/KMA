@@ -1,14 +1,3 @@
-"""Poincare ball geometry — the math heart of KMA.
-
-All operations are pure numpy and act on the open unit ball
-    B^n = { x in R^n : ||x|| < 1 }
-with curvature -1. We keep every point strictly inside the ball via
-`project`, because Mobius maps and the distance formula blow up on the
-boundary (this is research-risk 11.4 in the brief, handled explicitly).
-
-References: Ungar, "Gyrovector spaces"; Ganea et al., "Hyperbolic NN".
-"""
-
 from __future__ import annotations
 
 import numpy as np

@@ -1,23 +1,3 @@
-"""KMAEngine — insertion + hybrid retrieval.
-
-Honest design note: the n-D ball DIRECTION is a degraded random projection of
-the embedding, so hyperbolic distance to the *query* is a WORSE similarity
-signal than cosine. We do NOT use it as a similarity metric. What the ball
-faithfully encodes is the GIVEN tree (every parent->child edge ~= STEP), so
-node-to-node hyperbolic distance is a real *structural* signal cosine lacks.
-
-Hybrid retrieval:
-  stage 1  RECALL   : flat cosine -> top `recall_k` candidates. The best one
-                      is the ANCHOR (cosine is best at picking the match).
-  stage 2  STRUCT   : add a structural bonus = closeness (in the ball) to the
-                      anchor, surfacing the anchor's tree-relatives that cosine
-                      ranked below k.
-  stage 3  EXPAND   : optionally fold in the anchor's whole branch explicitly.
-
-Set alpha=1, beta=0, expand=False to recover the pure-embedding baseline, so
-the A/B comparison in eval.py is honest.
-"""
-
 from __future__ import annotations
 
 import threading

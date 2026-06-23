@@ -26,3 +26,6 @@ kma_memory.json
 .venv/
 .DS_Store
 .claude/
+
+# local dev notes
+RELEASING.md

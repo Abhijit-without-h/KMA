@@ -1,15 +1,3 @@
-"""Rank fusion + evidence scoring -- the final authority over the retrievers.
-
-The manifold (and every other retriever) is only a *candidate generator*. Here we
-combine their ranked lists with Reciprocal Rank Fusion (scale-free, no tuning),
-measure how many independent retrievers corroborate each candidate, and refuse to
-present an uncorroborated top hit as confident. That corroboration gate is the
-core anti-hallucination mechanism: a single retriever's fluke cannot win.
-
-Optionally a cross-encoder reranker (sentence-transformers, lazy/optional) can
-re-score the fused shortlist for higher precision; the evidence gate still applies.
-"""
-
 from __future__ import annotations
 
 from collections import defaultdict

@@ -1,22 +1,3 @@
-"""AgenticMemory — the agent-facing facade over the KMA engine.
-
-This is what an LLM agent (or the MCP server) actually calls. It adds the pieces
-that turn a retrieval engine into an *agentic memory*:
-
-  * add()          auto-placement -- a new memory is attached under its nearest
-                   existing concept automatically (no manual parent_id), so the
-                   hierarchy grows on its own as the agent talks.
-  * search()       scoped retrieval with PROVENANCE (the ancestor path that
-                   explains *why* a memory was recalled).
-  * get_context()  assemble a compact, prompt-ready memory block (top hits rolled
-                   up with their ancestors) within a character budget.
-  * update()/forget()  revise or remove a memory (children are reparented).
-
-Scope (user_id / agent_id / session_id) is a metadata filter so one store can
-serve many agents/sessions. All heavy lifting is delegated to KMAEngine; this
-layer is pure-Python and dependency-light.
-"""
-
 from __future__ import annotations
 
 from dataclasses import dataclass

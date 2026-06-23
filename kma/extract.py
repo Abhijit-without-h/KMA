@@ -1,15 +1,3 @@
-"""LLM-based fact extraction.
-
-Storing raw conversation turns makes memory noisy ("Remind me — what stack did I
-say?" is not a fact worth keeping). An extractor distills a turn into atomic,
-standalone, durable facts, which are then auto-placed into the hierarchy. This is
-what makes recall clean instead of a transcript dump.
-
-The LLM call is injectable, so extraction is testable without network. The prompt
-asks for a strict JSON array of short strings; parsing is defensive (a bad/empty
-response yields no facts rather than an error).
-"""
-
 from __future__ import annotations
 
 import json

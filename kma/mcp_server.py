@@ -1,14 +1,3 @@
-"""MCP server exposing KMA as agentic memory tools to an LLM host.
-
-Connect it in Claude Desktop / Claude Code via `.mcp.json` (see README). The
-tool logic lives in plain `tool_*` functions (unit-testable without a running MCP
-host); `build_server()` lazily imports the `mcp` SDK and registers them, so the
-rest of the package works even if `mcp` isn't installed.
-
-Tools: memory.add, memory.search, memory.get_context, memory.forget,
-memory.explain_address.
-"""
-
 from __future__ import annotations
 
 import os
