@@ -1,9 +1,3 @@
-"""Visualization — project the n-D ball to 2D (PCA) and draw the disk.
-
-2D is for *looking only*; retrieval uses the full n-D ball. Edges are drawn
-parent->child so you can see the hierarchy fan out toward the boundary.
-"""
-
 from __future__ import annotations
 
 import numpy as np

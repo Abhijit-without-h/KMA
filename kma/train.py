@@ -1,18 +1,3 @@
-"""Train the HyperbolicChart on the taxonomy's is-a tree.
-
-Objective (the heart of beating cosine):
-  L_hier  parent<->child close + child farther from origin than parent, and
-          closer than a cross-branch negative  -> encodes asymmetric is-a.
-  L_sem   siblings close, cross-branch far                 -> preserves semantics.
-  L_depth radius grows with tree depth                     -> generality ordering.
-
-Supervision is the parent/child structure we already store -- free labels. Base
-embeddings are frozen; only phi (and curvature c) train. Plain Adam on the
-tangent-space parameters (no geoopt needed).
-
-Run:  python -m kma.train
-"""
-
 from __future__ import annotations
 
 from dataclasses import dataclass

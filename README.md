@@ -105,8 +105,10 @@ text ─▶ embedding (any model) ─▶ φ chart ─▶ point in a Poincaré ba
 | Module | Role |
 |---|---|
 | `kma/memory.py` | `AgenticMemory` — add / search / get_context / update / forget + auto-placement |
-| `kma/engine.py` | embed → place → hybrid retrieval |
+| `kma/engine.py` | embed → place → hybrid + ensemble retrieval, with a cached query snapshot |
 | `kma/geometry.py` | the math heart: Poincaré-ball ops with learnable curvature |
+| `kma/manifold.py` | self-organizing manifold — region index (sub-linear routing), geodesic walk, folding |
+| `kma/retrievers.py` · `fusion.py` | cosine / BM25 / hyperbolic voters + rank fusion with an evidence gate |
 | `kma/chart.py` · `train.py` | the trainable projection `φ` and its objective |
 | `kma/extract.py` | LLM fact extraction (distill turns into atomic memories) |
 | `kma/mcp_server.py` | MCP connector for LLM hosts |

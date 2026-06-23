@@ -1,12 +1,3 @@
-"""Embedding layer.
-
-Tries SentenceTransformers (all-MiniLM-L6-v2, 384-D). If it is not installed
-or cannot download, falls back to a deterministic hashing embedder so the
-whole prototype still runs offline and tests stay reproducible.
-
-Both backends return L2-normalized vectors, so dot product == cosine.
-"""
-
 from __future__ import annotations
 
 import hashlib

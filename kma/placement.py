@@ -1,19 +1,3 @@
-"""Placement: embedding (+ parent, + depth) -> point in the Poincare ball.
-
-Design (no training in v1):
-  * DIRECTION carries semantics. We reduce the high-D embedding to the ball
-    dimension with a fixed, seeded random projection (Johnson-Lindenstrauss
-    style) and normalize -> a unit direction on the ball.
-  * RADIUS carries generality. Children are placed by Mobius-translating the
-    parent point by a fixed-length tangent step along the child's own
-    direction. Because hyperbolic space expands toward the boundary, deeper
-    nodes naturally land further out -> root concepts near center, details
-    near the rim. dist(child, parent) ~= STEP for every edge.
-
-A query has no parent/depth, so it is placed at the center, stepped out once
-along its own direction (see `place_query`).
-"""
-
 from __future__ import annotations
 
 from functools import lru_cache
