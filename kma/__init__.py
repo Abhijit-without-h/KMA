@@ -16,8 +16,7 @@ v1 scope (no MCP, no DB, no training):
     geometry for re-ranking + branch expansion.
 
 The retrieval win over flat embeddings comes from hierarchy awareness, not
-from low dimension. The Mobius/Kleinian addressing layer (mobius.py) is an
-optional, separate bookkeeping layer and is NOT what makes retrieval better.
+from low dimension.
 """
 
 from kma.models import MemoryNode

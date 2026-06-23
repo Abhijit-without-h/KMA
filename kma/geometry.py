@@ -171,3 +171,38 @@ def dist_c_batch(q: Vector, pts: NDArray[np.float64], c: float) -> Vector:
     dn = np.linalg.norm(diff, axis=1)
     sc = np.sqrt(c)
     return (2.0 / sc) * np.arctanh(np.minimum(sc * dn, 1.0 - 1e-7))
+
+
+def logmap0_c_batch(pts: NDArray[np.float64], c: float) -> NDArray[np.float64]:
+    """Vectorized logmap0_c: map each ball point to its tangent vector at 0.
+
+    Inverse of expmap0_c per row. Used to take a (tangent-space) mean of many
+    points, which is the cheap approximation to the hyperbolic Frechet mean.
+    """
+    pts = np.asarray(pts, dtype=np.float64)
+    if pts.ndim == 1:
+        pts = pts[None, :]
+    sc = np.sqrt(c)
+    norm = np.linalg.norm(pts, axis=1, keepdims=True)
+    safe = np.maximum(norm, EPS)
+    scale = (2.0 / sc) * np.arctanh(np.minimum(sc * norm, 1.0 - 1e-7)) / safe
+    scale = np.where(norm < EPS, 0.0, scale)
+    return pts * scale
+
+
+def frechet_mean_c(pts: NDArray[np.float64], c: float) -> Vector:
+    """Approximate hyperbolic centroid via the tangent space at the origin.
+
+    center = expmap0_c( mean( logmap0_c(pts) ) ). This is the standard cheap
+    O(n*d) approximation of the Karcher/Frechet mean -- exact at the origin and
+    accurate when points are not crowded against the boundary, which is the
+    regime region centers live in. Good enough for IVF-style region centers;
+    upgrade to a Karcher iteration only if recall demands it.
+    """
+    pts = np.asarray(pts, dtype=np.float64)
+    if pts.ndim == 1:
+        return project_c(pts, c)
+    if len(pts) == 0:
+        raise ValueError("frechet_mean_c of an empty set")
+    tangent = logmap0_c_batch(pts, c).mean(axis=0)
+    return expmap0_c(tangent, c)

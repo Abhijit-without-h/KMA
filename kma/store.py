@@ -19,9 +19,17 @@ from kma.models import MemoryNode
 class MemoryStore:
     def __init__(self) -> None:
         self._nodes: dict[str, MemoryNode] = {}
+        # Monotonic counter bumped on every mutation. Caches (e.g. the engine's
+        # retriever snapshot) compare against it to know when to rebuild, so
+        # read-heavy query traffic never rebuilds an unchanged index.
+        self._version = 0
 
     def __len__(self) -> int:
         return len(self._nodes)
+
+    @property
+    def version(self) -> int:
+        return self._version
 
     def add(self, node: MemoryNode) -> None:
         self._nodes[node.id] = node
@@ -29,6 +37,7 @@ class MemoryStore:
             parent = self._nodes[node.parent_id]
             if node.id not in parent.children_ids:
                 parent.children_ids.append(node.id)
+        self._version += 1
 
     def get(self, node_id: str) -> MemoryNode | None:
         return self._nodes.get(node_id)
@@ -38,6 +47,7 @@ class MemoryStore:
         node = self._nodes.pop(node_id, None)
         if node is None:
             return
+        self._version += 1
         new_parent = node.parent_id
         if new_parent and new_parent in self._nodes:
             p = self._nodes[new_parent]
@@ -104,3 +114,4 @@ class MemoryStore:
     def load(self, path: str | Path) -> None:
         data = json.loads(Path(path).read_text())
         self._nodes = {d["id"]: MemoryNode(**d) for d in data}
+        self._version += 1
